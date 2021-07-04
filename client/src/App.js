@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Button, Container, Jumbotron } from "react-bootstrap"
+import { BrowserRouter as Router } from "react-router-dom"
+import Footer from "./components/Footer"
+import Header from "./components/Header"
+import { LinkContainer } from "react-router-bootstrap"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Welcome to the world of madness22
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Header />
+
+      <main className="py-3">
+        <Container>
+          <Jumbotron>
+            <h1 className="text-center">
+              CIA File Redacter
+            </h1>
+            <p className="text-center">
+              <LinkContainer to="/files">
+                <Button variant="success" size="lg" >
+                  Redacted Files
+                </Button>
+              </LinkContainer>
+            </p>
+          </Jumbotron>
+        </Container>
+
+      </main>
+
+      <Footer />
+
+    </Router>
+  )
 }
 
-export default App;
+export default App
