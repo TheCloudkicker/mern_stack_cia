@@ -1,8 +1,9 @@
 import React from 'react'
-import { Button, Container, Jumbotron } from "react-bootstrap"
+import { Button, Container, Jumbotron, Form } from "react-bootstrap"
 import { BrowserRouter as Router } from "react-router-dom"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
+import UploadForm from "./components/UploadForm"
 import { LinkContainer } from "react-router-bootstrap"
 
 const App = () => {
@@ -12,18 +13,8 @@ const App = () => {
 
       <main className="py-3">
         <Container>
-          <Jumbotron>
-            <h1 className="text-center">
-              CIA File Redacter
-            </h1>
-            <p className="text-center">
-              <LinkContainer to="/files">
-                <Button variant="success" size="lg" >
-                  Redacted Files
-                </Button>
-              </LinkContainer>
-            </p>
-          </Jumbotron>
+          <UploadForm />
+
         </Container>
 
       </main>
