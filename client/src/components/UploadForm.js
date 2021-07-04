@@ -16,6 +16,11 @@ const UploadForm = () => {
     const [file, setFile] = useState(null)
     const [params, setParams] = useState([])
 
+    const [processedFile, setProcessedFile] = useState({
+        isProcessed: false,
+        newtext: ''
+    })
+
     const reset = () => {
         inputRef.current.value = null
         setFile(null)
@@ -87,6 +92,22 @@ const UploadForm = () => {
         )
     }
 
+    const startProc = async () => {
+        setLoading(true)
+
+        const res = await procFile(file, params)
+
+        setProcessedFile({
+            isProcessed: true,
+            hrefLink: res.hrefLink
+        })
+
+
+        setLoading(false)
+
+
+    }
+
 
     return (
         <>
@@ -125,15 +146,24 @@ const UploadForm = () => {
             {stringError ? <Alert variant={'danger'}>Input not formatted correctly</Alert> : null}
 
             {renderParsed()}
+            {/* 
+            {processedFile.isProcessed ?
+
+                <Row>
+                    <a href={processedFile.hrefLink}>Download File</a>
+                </Row>
+                : null} */}
 
 
             {!loading ?
-                <Button variant="primary" type="submit" disabled={!validated} onClick={() => setLoading(!loading)}>Submit</Button>
+                <Button variant="primary" type="submit" disabled={!validated} onClick={() => startProc()}>Submit</Button>
                 :
                 <Spinner animation="border" />
             }
 
             <Button variant="primary" className="mx-2" type="submit" onClick={() => reset()}>Reset</Button>
+
+
 
         </>
     )
