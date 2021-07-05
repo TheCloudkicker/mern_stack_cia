@@ -40,7 +40,9 @@ export const procFile = (file, paramsArray) => {
             const downloadLink = window.document.createElement('a');
 
             downloadLink.href = window.URL.createObjectURL(new Blob([lines2], { type: 'text/plain' }));
-            downloadLink.download = file.name + '-redacted'
+
+            let fName = file.name.split('.')[0]
+            downloadLink.download = fName + '-redacted.txt'
             document.body.appendChild(downloadLink);
             downloadLink.click();
             document.body.removeChild(downloadLink);

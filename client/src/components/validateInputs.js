@@ -14,7 +14,9 @@ export const validateString = string => {
 
         var matches = /".+?"/.exec(string);
         string = string.replace(/".+?"/, "").replace(/^\s+|\s+$/g, "");
-        var parsedArray = string.split(" ");
+        var parsedArray = string.split(/[ ,]+/);
+
+
         if (matches) {
             for (var i = 0; i < matches.length; i++) {
                 parsedArray.push(matches[i].replace(/"/g, ""));

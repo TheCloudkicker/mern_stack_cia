@@ -42,17 +42,19 @@ const UploadForm = () => {
 
     const handleFileChange = e => {
 
-        let name = e.target.files[0].name
+        if (e.target.files) {
+            let name = e.target.files[0].name
 
-        if (name.endsWith('.txt')) {
-            setFile(e.target.files[0])
-            return
-        } else {
-            e.target.value = null
-            isFileError(true)
-            setTimeout(() => {
-                isFileError(false)
-            }, 2000)
+            if (name.endsWith('.txt')) {
+                setFile(e.target.files[0])
+                return
+            } else {
+                e.target.value = null
+                isFileError(true)
+                setTimeout(() => {
+                    isFileError(false)
+                }, 2000)
+            }
         }
 
 
@@ -164,13 +166,13 @@ const UploadForm = () => {
             {renderParsed()}
 
             {!loading ?
-                <Button variant="primary" type="submit" disabled={!validated} onClick={() => startProc()}>Submit</Button>
+                <Button variant="primary" type="submit" disabled={!validated} onClick={() => startProc()}>Process File</Button>
                 :
                 <Spinner animation="border" />
             }
 
-            <Button variant="secondary" className="mx-2" type="submit" onClick={() => reset()}>Reset</Button>
             <Button variant="primary" className="mx-2" type="submit" disabled={!processedFile.isProcessed} onClick={() => save()}>Save to DB</Button>
+            <Button variant="secondary" type="submit" onClick={() => reset()}>Reset Form</Button>
 
 
 

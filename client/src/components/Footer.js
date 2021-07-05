@@ -7,7 +7,7 @@ const Footer = () => {
             <Container>
                 <Row>
                     <Col className="text-center py-3">
-                        TheCloudkicker &copy; {new Date().getFullYear()}
+                        CIA File Redacter &copy; {new Date().getFullYear()}
                     </Col>
                 </Row>
             </Container>
