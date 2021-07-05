@@ -3,6 +3,9 @@ import { Button, Form, Spinner, Row, Col, Alert } from "react-bootstrap"
 import { validateString } from './validateInputs'
 import { procFile } from './procFile'
 
+import { saveFileToServer } from '../store/actions/files'
+import { useSelector, useDispatch } from 'react-redux'
+
 
 const UploadForm = () => {
     const inputRef = useRef(null)
@@ -99,12 +102,25 @@ const UploadForm = () => {
 
         setProcessedFile({
             isProcessed: true,
-            hrefLink: res.hrefLink
+            newtext: res.newtext
         })
 
 
         setLoading(false)
 
+
+    }
+
+    const dispatch = useDispatch()
+
+    const save = () => {
+
+        dispatch(saveFileToServer({
+            fileText: processedFile.newtext,
+            user: 'batman',
+            fileName: file.name,
+            params: params
+        }))
 
     }
 
@@ -146,14 +162,6 @@ const UploadForm = () => {
             {stringError ? <Alert variant={'danger'}>Input not formatted correctly</Alert> : null}
 
             {renderParsed()}
-            {/* 
-            {processedFile.isProcessed ?
-
-                <Row>
-                    <a href={processedFile.hrefLink}>Download File</a>
-                </Row>
-                : null} */}
-
 
             {!loading ?
                 <Button variant="primary" type="submit" disabled={!validated} onClick={() => startProc()}>Submit</Button>
@@ -161,7 +169,8 @@ const UploadForm = () => {
                 <Spinner animation="border" />
             }
 
-            <Button variant="primary" className="mx-2" type="submit" onClick={() => reset()}>Reset</Button>
+            <Button variant="secondary" className="mx-2" type="submit" onClick={() => reset()}>Reset</Button>
+            <Button variant="primary" className="mx-2" type="submit" disabled={!processedFile.isProcessed} onClick={() => save()}>Save to DB</Button>
 
 
 
