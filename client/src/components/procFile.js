@@ -19,23 +19,20 @@ export const procFile = (file, paramsArray) => {
 
                 str = lines[r]
 
-                if (str.indexOf('Lorem') >= 0) {
-                    str = str.replace('Lorem', fill);
-                    newtext = newtext + str
-                }
+                for (var a = 0; a < paramsArray.length; a++) {
 
-                newtext = newtext + str + "\n"
+                    if (str.indexOf(paramsArray[a]) >= 0) {
+
+                        str = str.replace(paramsArray[a], fill);
+                    }
+
+                    newtext = newtext + str + "\n"
+                }
             }
 
-            console.log('newtext', newtext)
 
             let lines2 = newtext.split("\n");
 
-            for (var s = 0; s < lines2.length; s++) {
-
-                console.log('text', lines2[s])
-
-            }
 
             // var data = new Blob([lines2], { type: 'text/plain' });
             // var hrefLink = window.URL.createObjectURL(data);
@@ -43,7 +40,7 @@ export const procFile = (file, paramsArray) => {
             const downloadLink = window.document.createElement('a');
 
             downloadLink.href = window.URL.createObjectURL(new Blob([lines2], { type: 'text/plain' }));
-            downloadLink.download = file.name
+            downloadLink.download = file.name + '-redacted'
             document.body.appendChild(downloadLink);
             downloadLink.click();
             document.body.removeChild(downloadLink);

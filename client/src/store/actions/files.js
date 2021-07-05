@@ -19,8 +19,6 @@ export const saveFileToServer = file => (dispatch, getState) => {
         "redactedValues": JSON.stringify(file.params)
     }
 
-    console.log('Saving to Server', body)
-
     axios
         .post(url, body, config)
         .then(res => {
