@@ -15,11 +15,21 @@ export const validateString = string => {
         var matches = /".+?"/.exec(string);
         string = string.replace(/".+?"/, "").replace(/^\s+|\s+$/g, "");
         var parsedArray = string.split(/[ ,]+/);
+        console.log('parsedArray', parsedArray)
 
+        var parsedArray = parsedArray.filter(function (el) {
+            return !!el;
+        });
 
         if (matches) {
             for (var i = 0; i < matches.length; i++) {
-                parsedArray.push(matches[i].replace(/"/g, ""));
+
+                let text = matches[i].trim()
+                text = text.replace(/"/g, "")
+
+                if (text) {
+                    parsedArray.push(text);
+                }
             }
         }
 
@@ -28,10 +38,5 @@ export const validateString = string => {
             status: true,
             parsedArray: parsedArray
         })
-
-
     })
-
-
-
 }

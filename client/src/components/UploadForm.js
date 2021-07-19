@@ -65,6 +65,8 @@ const UploadForm = () => {
         setValidating(true)
         const res = await validateString(inputString)
 
+        console.log('res', res)
+
         setValidating(false)
 
         if (res.status) {
